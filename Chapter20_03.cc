@@ -27,8 +27,8 @@ double* high(double *begin, double *end){
     
     double *val = begin;
     for (double *i = begin + 1; i != end; i++){
-	if ((*i) > (*val))
-	    val = i;
+		if ((*i) > (*val))
+			val = i;
     }
 
     return val;
@@ -36,13 +36,13 @@ double* high(double *begin, double *end){
 
 double* high(vector<double> &vec){
     if (vec.empty())
-	throw runtime_error("Empty Vector passed to high()");
+		throw runtime_error("Empty Vector passed to high()");
     
     double *val = &vec[0];
 
     for (double &i : vec){
-	if (i > (*val))
-	    *val = i;
+		if (i > (*val))
+			*val = i;
     }
     
     return val;

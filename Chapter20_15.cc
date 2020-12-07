@@ -33,8 +33,8 @@ private:
 
 template<class T> pvector<T>::~pvector(){
     for (auto &i : vec){
-	std::cout << "Destroying element at address " << i << "\n";
-	delete i;
+		std::cout << "Destroying element at address " << i << "\n";
+		delete i;
     }
 
 }
@@ -44,9 +44,9 @@ int main(void){
     pvector<double *> plist;
 
     for (int i = 0; i < 10; i++){
-	double *val = new double{1.02 * i};
-	std::cout << "Creating element at address " << val << "\n";
-	plist.push_back(val);
+		double *val = new double{1.02 * i};
+		std::cout << "Creating element at address " << val << "\n";
+		plist.push_back(val);
     }
     std::cout << std::endl;
     // Now call its destructor at the end of the scope

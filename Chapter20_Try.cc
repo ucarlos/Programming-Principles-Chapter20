@@ -19,7 +19,7 @@ void copy(int *f1, int *e1, int *f2){
     // then this function will crash.
     int *p = f1;
     for (p; p != e1; p++)
-	*(f2 + (p - f1)) = *p;
+		*(f2 + (p - f1)) = *p;
 
 }
 
@@ -27,20 +27,20 @@ void copy(int *f1, int *e1, int *f2){
 template<typename Iter> void advance (Iter &p, int n){
     if (!n) return; // Return if n is zero
     else if (n < 0){ // If n is negative.
-	for (int i = 0; i > n; i--)
-	    p--;
+		for (int i = 0; i > n; i--)
+			p--;
 
     }
     else { // If n is positive
-	for (int i = 0; i < n; i++)
-	    p++;
+		for (int i = 0; i < n; i++)
+			p++;
     }
 	
 }
 
 void print_list(int *list, int list_length){
     for (int i = 0; i < list_length; i++)
-	std::cout << list[i] << " ";
+		std::cout << list[i] << " ";
     std::cout << "\n";
 
 }

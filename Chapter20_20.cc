@@ -41,20 +41,20 @@ void test_list(void){
 
     unsigned long val;
     cout << "Inserting and then Sorting " << max_int
-	 << " random integers for the list:\n";
+		 << " random integers for the list:\n";
     
     auto t1 = std::chrono::system_clock::now();
     for (unsigned long i = 0; i < max_int; i++){
-	val = dist(merse);
-	lst.push_back(val);
-	lst.sort();
+		val = dist(merse);
+		lst.push_back(val);
+		lst.sort();
     }    
    
     auto t2 = std::chrono::system_clock::now();
     cout << "It took "
-	 << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
-	 << " milliseconds to insert and then sort "
-	 << max_int << " numbers into a list.\n";
+		 << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
+		 << " milliseconds to insert and then sort "
+		 << max_int << " numbers into a list.\n";
     
 }
 
@@ -66,19 +66,19 @@ void test_vector(void){
 
     unsigned long val;
     cout << "Inserting and then Sorting " << max_int
-	 << " random integers for the vector.\n";
+		 << " random integers for the vector.\n";
     auto t1 = std::chrono::system_clock::now();
     for (unsigned long i = 0; i < max_int; i++){
-	val = dist(merse);
-	vec.push_back(val);
-	sort(vec.begin(), vec.end());
+		val = dist(merse);
+		vec.push_back(val);
+		sort(vec.begin(), vec.end());
     }
     
     auto t2 = std::chrono::system_clock::now();
     cout << "It took "
-	 << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
-	 << " milliseconds to insert and then sort "
-	 << max_int << " numbers into a vector.\n";
+		 << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
+		 << " milliseconds to insert and then sort "
+		 << max_int << " numbers into a vector.\n";
 
 
 }

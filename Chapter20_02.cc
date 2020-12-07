@@ -23,13 +23,13 @@ string alt_file_name = "./Chapter20_02.txt";
 void handle_file(ifstream &is){
     // If file_name exists, then open it.
     if (experimental::filesystem::exists(file_name))
-	is.open(file_name, ios_base::in);
+		is.open(file_name, ios_base::in);
     else if (experimental::filesystem::exists(alt_file_name))
-	is.open(alt_file_name, ios_base::in);
+		is.open(alt_file_name, ios_base::in);
     else{
-	string error = "Could not find " + file_name +
-	    " or " + alt_file_name + " . Exiting.";
-	throw runtime_error(error);
+		string error = "Could not find " + file_name +
+			" or " + alt_file_name + " . Exiting.";
+		throw runtime_error(error);
     }
 	     
 }
@@ -38,8 +38,8 @@ double* high (double *begin, double *end){
     
     double *val = begin;
     for (double *i = begin + 1; i != end; i++){
-	if ((*i) > (*val))
-	    val = i;
+		if ((*i) > (*val))
+			val = i;
     }
 
     return val;
@@ -51,8 +51,8 @@ void read_from_file(vector<double> &vec){
     handle_file(is);
 
     for (double val; is >> val;){
-	val *= 1.02;
-	vec.push_back(val);
+		val *= 1.02;
+		vec.push_back(val);
     }
     
 }
@@ -60,7 +60,7 @@ void read_from_file(vector<double> &vec){
 double* get_from_jack(int *count){
     // Set count to zero if it isn't
     if (!(*count))
-	*count = 0;
+		*count = 0;
 
     ifstream is;
     
@@ -69,12 +69,12 @@ double* get_from_jack(int *count){
     // Horrible inefficient code; open the file and find the count.
     double val;
     for (val; is >> val;){
-	*count = (*count + 1);
+		*count = (*count + 1);
     }
 
     if (!(*count)){
-	string error = file_name + " is empty.";
-	throw runtime_error(error);
+		string error = file_name + " is empty.";
+		throw runtime_error(error);
     }
 
     // Otherwise
@@ -87,7 +87,7 @@ double* get_from_jack(int *count){
     double multiplier = 1.05;
     
     for (int i = 0; is >> val && i < *count; i++)
-	list[i] = multiplier * val;
+		list[i] = multiplier * val;
     
     
     return list;

@@ -28,7 +28,7 @@ void copy(int *f1, int *e1, int *f2){
     // then this function will crash.
     int *p = f1;
     for (p; p != e1; p++)
-	*(f2 + (p - f1)) = *p;
+		*(f2 + (p - f1)) = *p;
 
 }
 
@@ -36,20 +36,20 @@ void copy(int *f1, int *e1, int *f2){
 template<typename Iter> void advance (Iter &p, int n){
     if (!n) return; // Return if n is zero
     else if (n < 0){ // If n is negative.
-	for (int i = 0; i > n; i--)
-	    p--;
+		for (int i = 0; i > n; i--)
+			p--;
 
     }
     else { // If n is positive
-	for (int i = 0; i < n; i++)
-	    p++;
+		for (int i = 0; i < n; i++)
+			p++;
     }
 	
 }
 
 void print_list(int *list, int list_length){
     for (int i = 0; i < list_length; i++)
-	std::cout << list[i] << " ";
+		std::cout << list[i] << " ";
     std::cout << "\n";
 
 }
@@ -78,26 +78,26 @@ void try_this_main(void){ // Name was not intentional.
 void char_array_test(char *_string, int length){
     cout << "Passed array:\n";
     for (int i = 0; i < length; i++)
-	cout << _string[i] << "";
+		cout << _string[i] << "";
     cout << "\n";
     
     cout << "Is \"" << _string << "\" the same as \"Hello\" ? "
-	 << (strncmp(_string, "Hello", 5))
-	 << "\n";
+		 << (strncmp(_string, "Hello", 5))
+		 << "\n";
 
 }
 
 void string_test(string str){
     cout << "Passed String: " << str << "\n";
     cout << "Is \"" << str << "\" the same as \"Hello\" ? : "
-	 << (str == "Hello") << "\n";
+		 << (str == "Hello") << "\n";
 }
 
 
 void list_string_test(list<char> list){
     cout << "Passed list<string>:\n";
     for (auto &i : list)
-	cout << i;
+		cout << i;
     cout << endl;
     
     std::list<char> check;
@@ -111,16 +111,16 @@ void list_string_test(list<char> list){
     bool test = true;
 
     if (list.size() != check.size())
-	test = false;
+		test = false;
 
     // Now check each character.
     std::list<char>::iterator it = check.begin();    
     for (auto &i : list){
-	if (i != *it){
-	    test = false;
-	    break;
-	}
-	it++;
+		if (i != *it){
+			test = false;
+			break;
+		}
+		it++;
     }
     
     cout << boolalpha << test << endl;
@@ -130,7 +130,7 @@ void list_string_test(list<char> list){
 void vector_test(vector<char> list){
     cout << "Passed vector:\n";
     for (char &i : list)
-	cout << i;
+		cout << i;
     cout << endl;
     
     vector<char> check = {'H', 'e', 'l', 'l', 'o'};
@@ -139,16 +139,16 @@ void vector_test(vector<char> list){
     bool test = true;
     
     if (list.size() != check.size())
-	test = false;
+		test = false;
 
     vector<char>::iterator it = check.begin();
     for (auto &i : list){
-	if (i != *it){
-	    test = false;
-	    break;
-	}
+		if (i != *it){
+			test = false;
+			break;
+		}
 	
-	it++;
+		it++;
     }
 
     cout << test << endl;
@@ -157,7 +157,7 @@ void vector_test(vector<char> list){
 
 
 void string_main(void){
-   cout << boolalpha;
+	cout << boolalpha;
     char char_string[CHAR_SIZE] = "Hello";
     string string_string = "Hello";
     list<char> list_string;
@@ -192,43 +192,43 @@ void string_main(void){
 
 void check_int_array(int *array, int length){
     if (length < INT_SIZE){
-	ostringstream os;
-	os << "Length parameter should be at least " << INT_SIZE << "\n";
-	throw runtime_error(os.str());
+		ostringstream os;
+		os << "Length parameter should be at least " << INT_SIZE << "\n";
+		throw runtime_error(os.str());
     }
     
     cout << "Passed Raw array:\n";
     for (int i = 0; i < length; i++)
-	cout << array[i] << " ";
+		cout << array[i] << " ";
     cout << endl;
 
     
     cout << "Checking values from 1 to " << INT_SIZE << "\n";
     bool check{true};
     for (int i = 0; i < INT_SIZE; i++)
-	if (array[i] != (i + 1))
-	    check = false;
+		if (array[i] != (i + 1))
+			check = false;
     
     cout << "Result: " << check << endl;
 }
 
 void check_vector_array(vector<int> v){
     if (v.size() < INT_SIZE){
-	ostringstream os;
-	os << "Vector size should be at least " << INT_SIZE << "\n";
-	throw runtime_error(os.str());
+		ostringstream os;
+		os << "Vector size should be at least " << INT_SIZE << "\n";
+		throw runtime_error(os.str());
     }
     
     cout << "Passed Vector:\n";
     for (int &i : v)
-	cout << i << " ";
+		cout << i << " ";
     cout << endl;
     
     cout << "Checking values from 1 to " << INT_SIZE << "\n";
     bool check{true};
     for (int i = 0; i < INT_SIZE; i++)
-	if (v[i] != (i + 1))
-	    check = false;
+		if (v[i] != (i + 1))
+			check = false;
 
     cout << "Result: " << check << endl;
 }
@@ -236,14 +236,14 @@ void check_vector_array(vector<int> v){
 
 void check_list_array(list<int> l){
     if (l.empty() || l.size() < INT_SIZE){
-	ostringstream os;
-	os << "List size should be at least " << INT_SIZE << "\n";
-	throw runtime_error(os.str());
+		ostringstream os;
+		os << "List size should be at least " << INT_SIZE << "\n";
+		throw runtime_error(os.str());
     }
 
     cout << "Passed List:\n";
     for (auto &i: l)
-	cout << i << " ";
+		cout << i << " ";
     cout << endl;
 
     cout << "Checking values from 1 to " << INT_SIZE << "\n";
@@ -251,8 +251,8 @@ void check_list_array(list<int> l){
     list<int>::iterator it = l.begin();
     
     for (int i = 0; i < INT_SIZE; i++, it++){
-	if (*it != (i + 1))
-	    check = false;
+		if (*it != (i + 1))
+			check = false;
     }
     
     cout << "Result: " << check << endl;

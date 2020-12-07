@@ -19,7 +19,7 @@ vector<double> make_vector(list<int> &l){
     auto list_it = l.begin();
 
     for (auto &i : vec)
-	i = *list_it++;
+		i = *list_it++;
     
     return vec;
 }
@@ -28,7 +28,7 @@ int main(void){
     list<int> l = {1, 2, 4, 8, 16, 32, 64, 128, 256};
     cout << "Contents of list:\n";
     for (int &i : l)
-	cout << i << " ";
+		cout << i << " ";
     cout << endl;
 
     cout << "Now copying list into vector...\n";
@@ -36,7 +36,7 @@ int main(void){
     cout << "Contents of vector:\n";
     
     for (auto it = vd.end() - 1; it >= vd.begin(); it--)
-	cout << *it << " ";
+		cout << *it << " ";
     cout << "\n";
     
     cout << endl;

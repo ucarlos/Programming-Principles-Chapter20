@@ -26,7 +26,7 @@ class Text_iterator : public std::iterator<std::bidirectional_iterator_tag, char
     Line::iterator pos;
 public:
     Text_iterator(list<Line>::iterator ll, Line::iterator pp)
-	: ln{ll}, pos{pp} { }
+		: ln{ll}, pos{pp} { }
 
     char& operator*()  { return *pos; }
     Line::iterator get_position() { return pos;}
@@ -34,9 +34,9 @@ public:
     Text_iterator& operator++();
     Text_iterator& operator--();
     bool operator==(const Text_iterator &other) const
-	{ return ln == other.ln && pos == other.pos; }
+		{ return ln == other.ln && pos == other.pos; }
     bool operator!=(const Text_iterator &other) const
-	{ return !(*this == other); }
+		{ return !(*this == other); }
     
 };
 
@@ -44,8 +44,8 @@ Text_iterator& Text_iterator::operator++(){
     ++pos;
     
     if (pos == (*ln).end()){
-	++ln;
-	pos = (*ln).begin();
+		++ln;
+		pos = (*ln).begin();
     }
     
     return *this;
@@ -53,11 +53,11 @@ Text_iterator& Text_iterator::operator++(){
 
 Text_iterator& Text_iterator::operator--(){
     if (pos == (*ln).begin()){
-	--ln;
-	pos = (*ln).end();
+		--ln;
+		pos = (*ln).end();
     }
     else
-	--pos;
+		--pos;
     
     return *this;
 }
@@ -66,12 +66,12 @@ Text_iterator& Text_iterator::operator--(){
 template<typename Iter> void my_advance(Iter &p, int n){
     if (!n) return;
     if (n < 0){
-	for (int i = 0; i > n; i--)
-	    --p;
+		for (int i = 0; i > n; i--)
+			--p;
     }
     else{
-	for (int i = 0; i < n; i++)
-	    ++p;
+		for (int i = 0; i < n; i++)
+			++p;
     }
 }
 
@@ -85,9 +85,9 @@ struct Document{
     Document() { line.push_back(Line{}); }
     Text_iterator begin() { return Text_iterator(line.begin(), line.begin()->begin()); }
     Text_iterator end(){
-	auto last = line.end();
-	--last;
-	return Text_iterator(last, last->end());
+		auto last = line.end();
+		--last;
+		return Text_iterator(last, last->end());
     }
 
 };
@@ -95,16 +95,16 @@ struct Document{
 istream& operator>>(istream &is, Document &d){
     char stop = '~';
     for (char ch; is.get(ch);){
-	if (ch == stop) // Break if null character is inputted.
-	    break;
+		if (ch == stop) // Break if null character is inputted.
+			break;
 
-	d.line.back().push_back(ch); // Add the character
-	if (ch == '\n')
-	    d.line.push_back(Line{}); // Add another line.
+		d.line.back().push_back(ch); // Add the character
+		if (ch == '\n')
+			d.line.push_back(Line{}); // Add another line.
 	
     }
     if (d.line.back().size())
-	d.line.push_back(Line{}); // Add final empty line.
+		d.line.push_back(Line{}); // Add final empty line.
     return is;
 
 
@@ -113,9 +113,9 @@ bool match(Text_iterator p, Text_iterator &last, const string &s){
     if (p == last) return false;
 
     for (auto i = 0; i < s.length() && p != last; i++){
-	if (*p == s[i])
-	    ++p;
-	else return false;
+		if (*p == s[i])
+			++p;
+		else return false;
     }
 
     return true;
@@ -130,32 +130,32 @@ Text_iterator find_txt(Text_iterator first, Text_iterator last, const string& s)
     if (s.size()==0) return last; // can’t find an empty string
     char first_char = s[0];
     while (true) {
-	auto p = find(first,last,first_char);
-	if (p==last || match(p,last,s)) return p;
-	first = ++p; // look at the next character
+		auto p = find(first,last,first_char);
+		if (p==last || match(p,last,s)) return p;
+		first = ++p; // look at the next character
     }
 }
 
 Text_iterator find_and_replace_txt(Text_iterator first, Text_iterator last,
-				   const string &search, const string &replace){
+								   const string &search, const string &replace){
 
     Text_iterator result = find_txt(first, last, search);
     if (result == last)
-	return last;
+		return last;
     else{
-	auto start = result.get_position();
-	my_advance(start, 1);
-	auto stop = result.get_position();
-	my_advance(stop, search.length());
+		auto start = result.get_position();
+		my_advance(start, 1);
+		auto stop = result.get_position();
+		my_advance(stop, search.length());
 
-	result.getLine().erase(start, stop);
+		result.getLine().erase(start, stop);
 
-	*result = replace[0];
+		*result = replace[0];
 	
-	for (int i = 1; i < replace.size(); i++)
-	    result.getLine().push_back(replace[i]);
+		for (int i = 1; i < replace.size(); i++)
+			result.getLine().push_back(replace[i]);
 
-	return result;
+		return result;
     }
 }
 

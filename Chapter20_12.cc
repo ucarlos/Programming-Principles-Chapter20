@@ -36,9 +36,9 @@ template<typename Elem> class list{
 public:
     // Default constructor
     list() {
-	// Just make a tail
-	tail = new Lonk<Elem>(Elem());
-	tail->succ = tail->prev = nullptr;
+		// Just make a tail
+		tail = new Lonk<Elem>(Elem());
+		tail->succ = tail->prev = nullptr;
     }
     class iterator;
 
@@ -107,11 +107,11 @@ template<typename Elem> void list<Elem>::pop_back(){
     
     auto last = tail->prev;
     if (last == head){
-	// Delete head and set to null
-	delete last;
-	head = tail->prev = nullptr;
-	sz--;
-	return;
+		// Delete head and set to null
+		delete last;
+		head = tail->prev = nullptr;
+		sz--;
+		return;
 	
     }
     
@@ -134,9 +134,9 @@ template<typename Elem> void list<Elem>::pop_front(){
     auto next = head->succ;
     // Handles head case
     if (next == tail){ // Delete head and set it to nullptr.
-	delete head;
-	head = tail->prev = nullptr;
-	return;
+		delete head;
+		head = tail->prev = nullptr;
+		return;
     }
 
     // Otherwise
@@ -155,16 +155,16 @@ template<typename Elem> void list<Elem>::push_front(const Elem &v){
     Lonk<Elem> *l = new Lonk<Elem>(v); // Create a new lonk
     
     if (tail == nullptr){ // Create tail
-	Lonk<Elem> *last = new Lonk<Elem>();
-	tail = last;
+		Lonk<Elem> *last = new Lonk<Elem>();
+		tail = last;
     }
     
     if (head == nullptr){
-	l->succ = tail;
-	l->prev = nullptr;
-	head = l;
-	return;
-	sz++;
+		l->succ = tail;
+		l->prev = nullptr;
+		head = l;
+		return;
+		sz++;
     }
     
     l->succ = head; // Set succ to head
@@ -179,18 +179,18 @@ template<typename Elem> void list<Elem>::push_back(const Elem &v){
     Lonk<Elem> *l = new Lonk<Elem>(v);
     
     if (tail == nullptr){
-	// Create tail
-	Lonk<Elem> *last = new Lonk<Elem>();
-	tail = last;
+		// Create tail
+		Lonk<Elem> *last = new Lonk<Elem>();
+		tail = last;
     }
        
     auto prev_link = tail->prev;
     if (prev_link == nullptr){ // make link head
-	tail->prev = head = l;
-	l->prev = nullptr;
-	l->succ = tail;
-	sz++;
-	return;
+		tail->prev = head = l;
+		l->prev = nullptr;
+		l->succ = tail;
+		sz++;
+		return;
     }
     
     l->succ = tail;
@@ -207,9 +207,9 @@ template<typename Elem> void list<Elem>::clear(){
     auto temp = head;
 
     while (start != end){
-	temp = start->succ;
-	delete start;
-	start = temp;
+		temp = start->succ;
+		delete start;
+		start = temp;
     }
 
     // Now delete tail
@@ -224,13 +224,13 @@ template<typename Elem>
 typename list<Elem>::iterator list<Elem>::insert(list::iterator p, const Elem &v) {
     // Return head if p is begin
     if (p == begin()){
-	push_front(v);
-	return head;
+		push_front(v);
+		return head;
     }
 
     if (p == end()){
-	push_back(v);
-	return tail->prev;
+		push_back(v);
+		return tail->prev;
     }
     
     //otherwise,
@@ -258,7 +258,7 @@ template<typename Elem> Elem& list<Elem>::back(){
 //------------------------------------------------------------------------------
 template<class Iter> void advance_to(Iter i1, Iter i2){
     while (i1 != i2)
-	i1++;
+		i1++;
 }
 
 //------------------------------------------------------------------------------
@@ -270,7 +270,7 @@ template<class Iter> Iter high(Iter begin, Iter end){
     Iter high = begin;
     Iter p = begin;
     for (Iter p = begin++; p != end; p++)
-	if (*p > *high) high = p;
+		if (*p > *high) high = p;
 
     return high;
 }
@@ -283,14 +283,14 @@ int main(void){
     // Now print the list:
     double temp;
     for (int i = 0; i < 10; i++){
-	temp = 1.05 * i;
-	my_list.push_back(temp);
+		temp = 1.05 * i;
+		my_list.push_back(temp);
     }
 
     // Print contents of list:
     cout << "Contents of List:\n";
     for (auto &i : my_list)
-	cout << i << " ";
+		cout << i << " ";
     cout << endl;
     auto result = high(my_list.begin(), my_list.end());
     cout << "Highest value in list: " << *result << "\n";
