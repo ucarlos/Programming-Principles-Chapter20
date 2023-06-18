@@ -12,7 +12,13 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 #include <iterator>
+
+// Adding this for logging:
+//#include <spdlog/spdlog.h>
+
+
 using namespace std;
 using Line = vector<char>;
 
@@ -110,7 +116,6 @@ istream& operator>>(istream &is, Document &d){
 
 }
 bool match(Text_iterator p, Text_iterator &last, const string &s){
-    if (p == last) return false;
 
     for (auto i = 0; i < s.length() && p != last; i++){
 		if (*p == s[i])
@@ -118,6 +123,8 @@ bool match(Text_iterator p, Text_iterator &last, const string &s){
 		else return false;
     }
 
+    if (p == last) return false;
+	
     return true;
     
 
@@ -136,34 +143,134 @@ Text_iterator find_txt(Text_iterator first, Text_iterator last, const string& s)
     }
 }
 
+void replace_text(Text_iterator result, const string &search, const string &replace) {
+	size_t search_size = search.size();
+	size_t replace_size = replace.size();
+		
+	auto replace_iterator = replace.begin();
+	Text_iterator start = result;
+
+	// Choose the smaller size of the two so that the other 
+	Text_iterator end = result;
+	my_advance(end, min(search_size, replace_size));
+	
+
+	
+
+	if (search_size == replace_size) {
+		Text_iterator end = result;
+		my_advance(end, search_size);
+
+		auto string_it = replace.begin();
+		for (Text_iterator it = result; result != end; ++it) {
+			*it = *string_it++;
+			++it;
+		}		   			
+	}
+
+	else if (search_size > replace_size) {
+		// You'll have to shrink some of the size
+		auto string_it = replace.begin();
+		Text_iterator end = result;
+		my_advance(end, search_size + 1);
+
+		Text_iterator it = result;
+		for (; result != end; ++it) {
+			*it = *string_it++;
+			++it;
+		}
+
+		size_t new_end = replace_size - search_size;
+		Text_iterator next = it;
+		for (size_t i = 0; i < new_end; i++) {
+			++next;
+			auto current_position = it.get_position();
+			it.getLine().erase(current_position);
+			it = next;
+		}
+		   		 			
+	}
+
+	else {
+		// You'll have to add some to the size:
+		auto string_it = replace.begin();
+			
+		Text_iterator end = result;
+		my_advance(end, replace_size + 1);
+
+		Text_iterator it = result;
+		for (; result != end; ++it) {
+			*it = *string_it++;
+			++it;
+		}
+			
+
+		size_t new_end = search_size - replace_size;
+		auto position = it.get_position();
+
+		for (size_t i = replace_size; i < search_size; i++) {
+			it.getLine().insert(++position, *string_it++);
+		}
+			
+
+			
+	}
+					
+
+}
+
+
+
+
 Text_iterator find_and_replace_txt(Text_iterator first, Text_iterator last,
 								   const string &search, const string &replace){
 
     Text_iterator result = find_txt(first, last, search);
     if (result == last)
 		return last;
-    else{
+    else {
+
+
+		
+		
 		auto start = result.get_position();
 		my_advance(start, 1);
+	   
 		auto stop = result.get_position();
 		my_advance(stop, search.length());
 
+		// You'll have to overide it:
+
+		// If the search is smaller then the replace,
+		// you'll have to insert some space into the line.
+		
+
+		// Otherwise, if they're exactly the same size,
+		// replacement is straight forward.
+
+
+		// if the search is greater than the replace,
+		// you'll have to remove some of the extra space.
+		
 		result.getLine().erase(start, stop);
 
+
+		
 		*result = replace[0];
 	
 		for (int i = 1; i < replace.size(); i++)
-			result.getLine().push_back(replace[i]);
+			result.getLine().inser t(replace[i]);
 
 		return result;
     }
 }
 
 
+
 uint64_t count_words(Text_iterator first, Text_iterator last){
-
-
+    return 0;
 }
+
 
 void print(Document &d){
     for (char & p : d){
@@ -173,7 +280,10 @@ void print(Document &d){
 }
 
 int main(void){
+    //spdlog::info("Creating the damn Document object:");
     Document d;
+
+    // Remember to end your line with an ~
     cin >> d;
     find_and_replace_txt(d.begin(), d.end(), "little bitch?", "miserable pile of secrets?");
     //find_and_replace_txt(d.begin(), d.end(), "bitch?", "HARLOT?");
