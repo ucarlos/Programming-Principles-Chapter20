@@ -132,7 +132,6 @@ bool match(Text_iterator p, Text_iterator last, const string &s){
 }
 
 
-
 Text_iterator find_txt(Text_iterator first, Text_iterator last, const string& s){
 
     if (s.size()==0) return last; // can’t find an empty string
@@ -144,7 +143,7 @@ Text_iterator find_txt(Text_iterator first, Text_iterator last, const string& s)
     }
 }
 
-void replace_text(Document &d, Text_iterator &result, const string &search, const string &replace) {
+void replace_text(Text_iterator &result, const string &search, const string &replace) {
 	size_t search_size = search.size();
 	size_t replace_size = replace.size();
 	size_t size_difference = max(search_size, replace_size) - min(search_size, replace_size);
@@ -159,7 +158,6 @@ void replace_text(Document &d, Text_iterator &result, const string &search, cons
 	
 	for (; begin != end; ++begin) {
 		*begin = *replace_iterator++;
-        std::string temp(begin, end);
 	}
 	
 	// If search_size > replace_size, shrink the size
@@ -174,10 +172,7 @@ void replace_text(Document &d, Text_iterator &result, const string &search, cons
 			begin.get_ln_iterator()->erase(current_position);
 			begin = temp;
             ++begin;
-            //std::string temp(begin, end);
 		}
-
-        begin.get_ln_iterator()->shrink_to_fit();
 
 	}
 
@@ -185,26 +180,26 @@ void replace_text(Document &d, Text_iterator &result, const string &search, cons
 		// If search_size < replace_size, increase the size
 		auto position = begin.get_position();
         begin.get_ln_iterator()->insert(position, replace_iterator, replace.end());
-        //begin.getLine().insert(position, replace_iterator, replace.end());
-
-
 	}
 	// Otherwise you're done.
 }
 
 
-Text_iterator find_and_replace_txt(Document &d, Text_iterator first, Text_iterator last,
+Text_iterator find_and_replace_txt(Text_iterator first, Text_iterator last,
 								   const string &search, const string &replace){
+
 
     Text_iterator result = find_txt(first, last, search);
     if (result == last) {
 		return last;
 	}
     else {
-		replace_text(d, result, search, replace);
+		replace_text(result, search, replace);
 		return result;
     }
 }
+
+
 
 
 
@@ -221,15 +216,15 @@ void print(Document &d){
 }
 
 int main(void){
+
     //spdlog::info("Creating the damn Document object:");
     Document d;
 
     // Remember to end your line with an ~
 	// Example: What the fuck did you just fucking say about me, you little bitch? ~
     cin >> d;
-    //find_and_replace_txt(d, d.begin(), d.end(), "little bitch?", "miserable pile of secrets?");
-    find_and_replace_txt(d, d.begin(), d.end(), "little bitch?", "slut");
-    //find_and_replace_txt(d.begin(), d.end(), "bitch?", "HARLOT?");
+    find_and_replace_txt(d.begin(), d.end(), "little bitch?", "miserable pile of secrets?");
+    cout << "\n\n\n";
     print(d);
 
 }
